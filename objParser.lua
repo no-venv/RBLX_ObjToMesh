@@ -46,9 +46,9 @@ local function f(str : string)
 			continue
 		end
 		
-		local face = split(face,"/")
+		face = split(face,"/")
 		
-		insert(indexes,tonumber(faces[1]))
+		insert(indexes,tonumber(face[1]))
 	
 	end
 
