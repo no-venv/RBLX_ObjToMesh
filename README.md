@@ -4,6 +4,8 @@ Obj to mesh using DynamicMesh
 # Setup
 First, enable the fflags: `FFlagSimEnableDynamicMesh` and `FFlagSimEnableDynamicMeshPhase2`
 
+Download the Module here: https://github.com/no-venv/RBLX_ObjToMesh/raw/main/objParser.rbxm
+
 # Usage 
 
 ```
