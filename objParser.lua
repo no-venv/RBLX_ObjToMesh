@@ -6,10 +6,6 @@
 
 local objParser = {}
 
-local INTERP_LIMIT = 1000
-local INTERP = 0
-
-local random = math.random
 local split = string.split
 local find = string.find
 local vector3 = Vector3.new
@@ -57,14 +53,7 @@ local function f(str : string)
 end
 
 local function interp( str : string )
-	
-	if INTERP > INTERP_LIMIT  then
-		task.wait(1/30)
-		INTERP = 0
-	end
-	
-	INTERP +=1
-	
+		
 	local command = str:sub(1,2)
 	
 	-- vertex 
@@ -80,13 +69,6 @@ local function interp( str : string )
 	
 end
 
-
-objParser.renderSpeed = {
-	NATIVE = 100_000_000,
-	FAST = 100_000,
-	SLOW = 1000,
-}
-
 objParser.new = function(data : string, color : Color3, renderSpeed : number)
 	
 	--[[
@@ -98,7 +80,6 @@ objParser.new = function(data : string, color : Color3, renderSpeed : number)
 	assert(data," please give me an obj file so i can munch on it")
 	
 	local color = not color and Color3.new(1,1,1) or color
-	INTERP = not renderSpeed and objParser.renderSpeed.NATIVE
 	
 	local lines_to_interpret = select(2,data:gsub("[^\n]+","[^\n]+"))
 	local interpeted = 0
@@ -112,7 +93,6 @@ objParser.new = function(data : string, color : Color3, renderSpeed : number)
 	print("Lines to interpret: ", lines_to_interpret)
 
 	local Mesh = Instance.new("DynamicMesh")
-	Mesh.Parent = workspace
 	
 	for vert_data in string.gmatch(data,"[^\n]+") do
 		
@@ -147,6 +127,8 @@ objParser.new = function(data : string, color : Color3, renderSpeed : number)
 		end	
 		
 	end
+	
+	Mesh.Parent = workspace
 	
 	local GeneratedMesh = Mesh:CreateMeshPartAsync(Enum.CollisionFidelity.Default)
 	
